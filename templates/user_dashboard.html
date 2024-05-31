@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+</head>
+<body>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="content">
+        <h2>Your Records</h2>
+        {% if patient_details %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Consultation Date</th>
+                        <th>Test Result</th>
+                        <th>Prescription</th>
+                        <th>Doctor Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patient_details %}
+                        <tr>
+                            <td>{{ patient[1] }}</td>
+                            <td>{{ patient[2] }}</td>
+                            <td>{{ patient[3] }}</td>
+                            <td>{{ patient[4] }}</td>
+                            <td>{{ patient[5] }}</td>
+                            <td>
+                                {% if patient[6] %}
+                                    <a href="{{ url_for('static', filename='uploads/' + patient[6].decode('latin-1')) }}" download>Download</a>
+                                {% else %}
+                                    No File
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if patient[7] %}
+                                    <a href="{{ url_for('static', filename='uploads/' + patient[7].decode('latin-1')) }}" download>Download</a>
+                                {% else %}
+                                    No File
+                                {% endif %}
+                            </td>
+                            
+                            
+                            <td>{{ patient[8] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No patient records found.</p>
+        {% endif %}
+    </div>
+
+    <div class="logout-link">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var flashMessages = document.querySelector('.flash-messages');
+                if (flashMessages) {
+                    flashMessages.innerHTML = '';
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

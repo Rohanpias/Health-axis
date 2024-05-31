@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+            </div>
+            <div class="contact-info">
+                <div class="emergency">
+                    <span>Emergency</span>
+                    <a href="tel:108">108</a>
+                </div>
+                <div class="lifeline">
+                    <span>Lifeline</span>
+                    <a href="tel:1234567890">1234-567-890</a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+<div class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+    <div class="featured" id="home">
+        <div class="overlay">
+            <div class="featured-content">
+                <h1>Healthcare</h1>
+                <p>Our team of over 11,000 doctors is dedicated to providing top-notch modern healthcare to keep you healthy. We offer personalized care plans, seamless appointment scheduling, and advanced diagnostic tools. Access your medical records securely online and benefit from our 24/7 support. Join our community wellness programs and trust us with your health and privacy.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content login" id="register">
+        <div class="container">
+            <div class="form-toggle">
+                <button id="loginToggle" class="active">Login</button>
+                <button id="signupToggle">Signup</button>
+            </div>
+            <div class="form-container">
+                <div id="loginForm" class="form active">
+                    <h2>User Login</h2>
+                    <form action="/login" method="post">
+                        <div class="form-group">
+                            <label for="userEmail">Email:</label>
+                            <input type="email" id="userEmail" name="userEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userPassword">Password:</label>
+                            <input type="password" id="userPassword" name="userPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userType">User Type:</label>
+                            <select id="userType" name="userType">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="signupForm" class="form hidden">
+                    <h2>User Signup</h2>
+                    <form action="/register" method="post">
+                        <div class="form-group">
+                            <label for="signupEmail">Email:</label>
+                            <input type="email" id="signupEmail" name="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password:</label>
+                            <input type="password" id="signupPassword" name="signupPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Signup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="content about" id="about">
+    <div class="about-container">
+        <div class="about-text">
+            <h2>About Us</h2>
+            <p>Welcome to our healthcare management system! Our mission is to provide an efficient and seamless experience for patients and healthcare providers by leveraging technology to improve healthcare delivery.</p>
+            <p>Our platform offers a comprehensive solution for managing patient records, scheduling appointments, and accessing medical information securely and conveniently. We are dedicated to enhancing the patient experience and ensuring that healthcare providers have the tools they need to deliver high-quality care.</p>
+            <p>Founded in 2023, our team comprises experienced professionals from the healthcare and technology sectors. We are passionate about innovation and committed to continuous improvement. By listening to feedback from our users, we strive to make our platform better every day.</p>
+            <p>Thank you for choosing our healthcare management system. We look forward to supporting your healthcare needs and making a positive impact on your health and well-being.</p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='images/abt.jpg') }}" alt="About Us">
+        </div>
+    </div>
+</div>
+
+    <div class="content contact" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <a href="https://www.instagram.com/your_instagram_username" target="_blank">
+                    <img src="{{ url_for('static', filename='images/insta.png') }}" alt="Instagram">
+                </a>
+            </div>
+            <div class="contact-item">
+                <a href="https://www.facebook.com/your_facebook_page" target="_blank">
+                    <img src="{{ url_for('static', filename='images/fb.png') }}" alt="Facebook">
+                </a>
+            </div>
+            <div class="contact-item">
+                <a href="https://wa.me/whatsapp_number" target="_blank">
+                    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+                </a>
+            </div>
+            <div class="contact-item">
+                <a href="mailto:your_email@example.com">
+                    <img src="{{ url_for('static', filename='images/gmail.png') }}" alt="Email">
+                </a>
+            </div>
+                <div class="contact-item">
+                    <a href="tel:+1234567890">
+                        <img src="{{ url_for('static', filename='images/call.png') }}" alt="Phone">
+                    </a>
+                </div>
+            </div>
+        </div>
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.remove();
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

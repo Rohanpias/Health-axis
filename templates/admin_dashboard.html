@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+
+    <div class="content" id="patient_details">
+        <h2>Patient Details</h2>
+        <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/admin_dashboard">
+            <div class="form-group">
+                <label for="patientName">Patient Name:</label>
+                <input type="text" id="patientName" name="patientName" required>
+            </div>
+            <div class="form-group">
+                <label for="patientAge">Age:</label>
+                <input type="number" id="patientAge" name="patientAge" required>
+            </div>
+            <div class="form-group">
+                <label for="patientEmail">Email:</label>
+                <input type="email" id="patientEmail" name="patientEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="patientPhone">Phone Number:</label>
+                <input type="tel" id="patientPhone" name="patientPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="consultationDate">Consultation Date:</label>
+                <input type="date" id="consultationDate" name="consultationDate" required>
+            </div>
+            <div class="form-group">
+                <label for="testResultFile">Test Report:</label>
+                <input type="file" id="testResultFile" name="testResultFile">
+            </div>
+            <div class="form-group">
+                <label for="prescriptionFile">Prescription:</label>
+                <input type="file" id="prescriptionFile" name="prescriptionFile">
+            </div>
+            <div class="form-group">
+                <label for="doctorDescription">Doctor Description:</label>
+                <textarea id="doctorDescription" name="doctorDescription" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="logout-link">
+        <a href="/logout">Logout</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='nav.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('uploadForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                var formData = new FormData(this);
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.success) {
+                                window.location.href = '/admin_dashboard';
+                            } else {
+                                document.querySelector('.flash-messages').innerHTML = '<div class="flash-message flash-danger">' + response.message + '</div>';
+                            }
+                        } else {
+                            document.querySelector('.flash-messages').innerHTML = '<div class="flash-message flash-danger">An error occurred. Please try again later.</div>';
+                        }
+                    }
+                };
+                xhr.open('POST', '{{ url_for("admin_dashboard") }}', true);
+                xhr.send(formData);
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>
