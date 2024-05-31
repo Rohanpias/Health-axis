@@ -141,5 +141,12 @@ def logout():
     flash('You have successfully logged out.', 'success')
     return redirect(url_for('home'))
 
+
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
