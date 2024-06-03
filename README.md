@@ -17,7 +17,7 @@ Health Axis is a comprehensive medical records filing system aimed at providing 
 
 2. *Backend Team (Rohanpias A)*: Tasked with developing the server-side logic and database management. This includes handling data storage, retrieval, and processing. Security and compliance with healthcare regulations may also fall under their responsibility.
 
-3. *Cloud Engineer (Abishek K)*: Manages the deployment and scaling of the application on Azure cloud infrastructure. They ensure the application runs smoothly, efficiently utilizes resources, and stays highly available. They may also be involved in setting up monitoring and automation processes using Azure Monitor and other relevant tools.
+3. *Cloud Engineer ( Abishek K)*: Manages the deployment and scaling of the application on Azure cloud infrastructure. They ensure the application runs smoothly, efficiently utilizes resources, and stays highly available. They may also be involved in setting up monitoring and automation processes using Azure Monitor and other relevant tools.
 
 ## Technologies Used
 
@@ -58,7 +58,6 @@ Health Axis is a comprehensive web platform designed to streamline the healthcar
     bash
     flask run
     
-
 ## Usage
 
 1. Navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your web browser.
@@ -115,7 +114,6 @@ Health Axis is a comprehensive web platform designed to streamline the healthcar
 - doctor_description: Text.
 
 ## Links
-
 - [GitHub Repository](https://github.com/Rohanpias/Health-axis.git)
 - [Project Demo](https://youtu.be/FhxzgVXZRho)
 
@@ -144,4 +142,3 @@ Health Axis is a comprehensive web platform designed to streamline the healthcar
 ![23](https://github.com/Rohanpias/Health-axis/assets/100913880/e5f92a60-d35e-4696-a7e1-b0472c0f17ea)
 ![24](https://github.com/Rohanpias/Health-axis/assets/100913880/8eb299d8-3c42-450b-8742-a5e62f88452b)
 ![25](https://github.com/Rohanpias/Health-axis/assets/100913880/ace7b206-bfc5-4bc2-a12c-af84b3fc965b)
-
